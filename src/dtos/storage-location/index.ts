@@ -1,0 +1,5 @@
+export * from './create-storage-location-request.dto'
+export * from './get-storage-location-response.dto'
+export * from './list-storage-location-request.dto'
+export * from './list-storage-location-response.dto'
+export * from './update-storage-location-request.dto'

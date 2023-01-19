@@ -1,0 +1,5 @@
+export * from './create-storage-location'
+export * from './update-storage-location'
+export * from './delete-storage-location'
+export * from './get-storage-location'
+export * from './list-storage-location'
