@@ -47,12 +47,43 @@ Follow the instructions to run the API correctly:
     REDIS_PORT=""
    ```
 
-### Installation
+### Start
 
 1. Clone the repo
    ```sh
    git clone git@github.com:wbilibio/app-logistic-company-api.git
    ```
+2. Duplicate and rename from .env.example to .env
+### Intalation with Docker
+
+1. Run build develop environment:
+```sh
+  docker compose -f "docker-compose.yml" up --build dev 
+```
+
+2. Get environment variables on .env and start a Postgres connection, then create a schema called "logistic".
+
+3. Access container docker:
+```sh
+  docker exec -it logistic_company_api_dev s
+```  
+
+3. Run migration:
+```sh
+  yarn migration:run:dev
+```
+
+### Instalation without Docker
+
+1. Create a Schema on <a href="https://www.postgresql.org/download/">PostgreSQL</a> Database called "logistic"
+
+2. <a href="https://redis.io/docs/getting-started/installation/">Install Redis</a> and configure
+   ```sh
+    REDIS_HOST=""
+    REDIS_PASS=""
+    REDIS_PORT=""
+   ```
+
 2. Install NPM packages
    ```js
    yarn install

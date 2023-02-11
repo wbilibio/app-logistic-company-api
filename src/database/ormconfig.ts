@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { ConnectionOptions } from 'typeorm';
 import path from 'path';
-import { Package, StorageLocation, PackageTransation } from '../core';
+import { Package, StorageLocation, PackageTransation, PackageCategory } from '../core';
 
 const connectionConfig: ConnectionOptions = {
   name: 'default',
@@ -12,7 +12,7 @@ const connectionConfig: ConnectionOptions = {
   password: process.env.DB_PASS,
   database: process.env.DB_DATABASE,
   schema: process.env.DB_SCHEMA,
-  entities: [Package, StorageLocation, PackageTransation],
+  entities: [Package, StorageLocation, PackageTransation, PackageCategory],
   logging: false,
   cli: {
     migrationsDir: path.resolve(__dirname, 'migrations'),

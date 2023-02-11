@@ -1,0 +1,78 @@
+version: '3.4'
+
+services:
+  dev:
+    container_name: logistic_company_api_dev
+    image: applogisticcompanyapi-dev:1.0.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: development
+    networks:
+      - logistic-api-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
+    command: "yarn dev"
+    ports:
+      - 3001:3001
+      - 9229:9229
+    depends_on:
+      - redis
+      - postgres
+    restart: always
+  prod:
+    container_name: logistic_company_api_prod
+    image: applogisticcompanyapi-prod:1.0.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: production
+    networks:
+      - logistic-api-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: "production"
+    command: "yarn start"
+    ports:
+      - 3001:3001
+      - 9229:9229
+    depends_on:
+      - redis
+      - postgres
+  redis:
+    container_name: logistic_company_api_redis
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+    networks:
+      - logistic-api-network
+  postgres:
+    container_name: logistic_company_api_postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - '5432:5432'
+    volumes:
+      - logistic-api-postgres:/var/lib/postgresql/data
+    networks:
+      - logistic-api-network
+volumes:
+  redis:
+    driver: local
+  logistic-api-postgres:
+networks:
+  logistic-api-network:
